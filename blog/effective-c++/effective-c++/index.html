@@ -1,0 +1,540 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=generator content="L1nkr theme for Hugo"><title>XiaBing Blog</title>
+<meta name=title content="XiaBing Blog"><meta name=author content="XiaBing"><meta name=description content="Demo site build with Qubt & Hugo"><link type=text/css rel=stylesheet href=/css/main.bundle.min.f1ccd6d02bc0d5bb31cf0710e1ba00b915358d4532a48334e0bbd94cb23825a9106b3a3f9a9c82884d882090e65b1e1c1b0acb6be6895d2b3705725cc710ca65.css integrity="sha512-8czW0CvA1bsxzwcQ4boAuRU1jUUypIM04LvZTLI4JakQazo/mpyCiE2IIJDmWx4cGwrLa+aJXSs3BXJcxxDKZQ=="><script defer src=/ja/main.bundle.min.dd5253fb998de7c3246284f69b898861b0a8f28b277c61634af94182a8ad566c8aaca6688eecf256f397c9777041691486ce6c63eaba4132b2629eaca4a04feb.js integrity="sha512-3VJT+5mN58MkYoT2m4mIYbCo8osnfGFjSvlBgqitVmyKrKZojuzyVvOXyXdwQWkUhs5sY+q6QTKyYp6spKBP6w=="></script><link rel=apple-touch-icon sizes=180x180 href=/icon_hufe09643361077857841381140dd3873d_14940_180x180_resize_box_3.png><link rel=icon type=image/png sizes=32x32 href=/icon_hufe09643361077857841381140dd3873d_14940_32x32_resize_box_3.png><meta property="og:title" content="Effective c++"><meta property="og:description" content="Effective C+ 导言 除非有好的理由允许隐式转换，否则声明explicit 拷贝构造函数和拷贝赋值操作符：如果有新对象被定义，一定会有个构造函数被调用 class Widget { public: Widget(); Widget(const Widget&amp;rhs); Widget& operator=(const Widget& rhs); }; Widget w1; //调用构造函数 Widget w2(w1); //调用拷贝构造函数 w1 = w2; //调用 = Widget w3 = w2; //调用拷贝构造函数 让自己习惯C++ 视C++为一个语言联邦 C++ = &lsquo;c&rsquo; + &lsquo;Object-Oriented c++&rsquo; + &lsquo;Template c++&rsquo; + &lsquo;STL&rsquo; 在 C 中，pass-by-value通常比pass-by-reference高效，而在C++中由于构造函数和析构函数的存在，pass-by-reference-to-const往往更好（和编译器层面有关，存在空指针，但没有空引用） 尽量以const, enum, inline 替换#define 获得编译错误时，#define定义的方式会带来困惑 对于单纯常量，最好以const对象或enums替换#define 对于形似函数的宏，最好使用inline函数替换#define 尽可能使用const bitwise constess: const成员函数不能更改non-static成员变量
+class Rational { ... }; const Rational operator* (const Rational& lhs,const Rational& rhs) { ."><meta property="og:type" content="article"><meta property="og:url" content="https://xiabing992.github.io/blog/effective-c++/effective-c++/"><meta property="og:image" content="https://xiabing992.github.io/author.jpeg"><meta property="article:section" content="blog"><meta property="article:published_time" content="2023-11-24T00:00:00+00:00"><meta property="article:modified_time" content="2023-11-24T00:00:00+00:00"><meta property="og:site_name" content="XiaBing Blog"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://xiabing992.github.io/author.jpeg"><meta name=twitter:title content="Effective c++"><meta name=twitter:description content="Effective C+ 导言 除非有好的理由允许隐式转换，否则声明explicit 拷贝构造函数和拷贝赋值操作符：如果有新对象被定义，一定会有个构造函数被调用 class Widget { public: Widget(); Widget(const Widget&amp;rhs); Widget& operator=(const Widget& rhs); }; Widget w1; //调用构造函数 Widget w2(w1); //调用拷贝构造函数 w1 = w2; //调用 = Widget w3 = w2; //调用拷贝构造函数 让自己习惯C++ 视C++为一个语言联邦 C++ = &lsquo;c&rsquo; + &lsquo;Object-Oriented c++&rsquo; + &lsquo;Template c++&rsquo; + &lsquo;STL&rsquo; 在 C 中，pass-by-value通常比pass-by-reference高效，而在C++中由于构造函数和析构函数的存在，pass-by-reference-to-const往往更好（和编译器层面有关，存在空指针，但没有空引用） 尽量以const, enum, inline 替换#define 获得编译错误时，#define定义的方式会带来困惑 对于单纯常量，最好以const对象或enums替换#define 对于形似函数的宏，最好使用inline函数替换#define 尽可能使用const bitwise constess: const成员函数不能更改non-static成员变量
+class Rational { ... }; const Rational operator* (const Rational& lhs,const Rational& rhs) { ."></head><body class="flex h-screen flex-col justify-between bg-neutral-100 dark:bg-neutral-800"><div><header class="sticky top-0 z-10 bg-neutral-100 dark:bg-neutral-800"><section class="mx-auto flex max-w-screen-xl items-center justify-between p-4"><a href=https://xiabing992.github.io/ class="flex items-center space-x-3"><img src=/logo_hufe09643361077857841381140dd3873d_14940_filter_7015326143714700434.webp class="h-8 w-8" alt=Logo>
+<span class="self-center whitespace-nowrap text-2xl font-semibold text-slate-700 dark:text-slate-400">XiaBing Blog</span></a><div><button id=hamburger-button class="relative h-8 w-8 cursor-pointer text-3xl md:hidden" aria-label=hamburger-button><div class="absolute top-4 -mt-0.5 h-[3px] w-8 rounded bg-slate-700 transition-all duration-500 before:absolute before:h-[3px] before:w-8 before:-translate-x-4 before:-translate-y-2.5 before:rounded before:bg-slate-700 before:transition-all before:duration-500 before:content-[''] after:absolute after:h-[3px] after:w-8 after:-translate-x-4 after:translate-y-2.5 after:rounded after:bg-slate-700 after:transition-all after:duration-500 after:content-[''] dark:bg-slate-400 before:dark:bg-slate-400 after:dark:bg-slate-400"></div></button><nav class="hidden space-x-8 text-xl md:block" aria-label=main><a href=/ class="px-3 py-2 text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">Home
+</a><a href=/blog/ class="px-3 py-2 text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">Blog
+</a><a href=/about/ class="px-3 py-2 text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">About</a></nav></div></section><section id=mobile-menu class="absolute hidden w-full origin-top animate-open-menu flex-col justify-center bg-neutral-100 text-4xl dark:bg-neutral-800"><nav class="flex min-h-screen flex-col items-center py-8" aria-label=mobile><a href=/ class="px-3 py-2 text-center text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">Home
+</a><a href=/blog/ class="px-3 py-2 text-center text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">Blog
+</a><a href=/about/ class="px-3 py-2 text-center text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">About</a></nav></section></header><main><div class="justify-left mx-auto mt-8 flex max-w-screen-md px-4"><article><h1 class="text-4xl font-extrabold text-slate-700 dark:text-slate-200">Effective c++</h1><h2 class="mt-4 text-2xl text-slate-500 dark:text-slate-400">Effective c++ 读书笔记</h2><div class="mb-4 mt-2 text-sm text-slate-500 dark:text-slate-400">Nov 24, 2023 - 6 minute read</div><div class="flex flex-col"><img class="mt-4 h-full w-full object-cover" src=/photo1_hu5459c0360c2b0cb7a147d2df0eb350ca_4652768_filter_11492400015018413633.webp alt="feature image" height=491 width=736>
+<span class="mb-4 mt-1 text-center text-sm text-slate-700 dark:text-slate-200">Image caption</span></div><span class="prose prose-slate text-lg text-slate-700 dark:prose-invert dark:text-slate-200"><h1 id=effective-c>Effective C+</h1><h2 id=导言>导言</h2><ul><li>除非有好的理由允许隐式转换，否则声明explicit</li><li>拷贝构造函数和拷贝赋值操作符：如果有新对象被定义，一定会有个构造函数被调用<pre tabindex=0><code>  class Widget
+  {
+  public:
+      Widget();
+      Widget(const Widget&amp;rhs);
+      Widget&amp; operator=(const Widget&amp; rhs);
+  };
+
+  Widget w1; //调用构造函数
+  Widget w2(w1); //调用拷贝构造函数
+  w1 = w2; //调用 =
+
+  Widget w3 = w2; //调用拷贝构造函数
+</code></pre></li></ul><h2 id=让自己习惯c>让自己习惯C++</h2><h3 id=视c为一个语言联邦>视C++为一个语言联邦</h3><ul><li>C++ = &lsquo;c&rsquo; + &lsquo;Object-Oriented c++&rsquo; + &lsquo;Template c++&rsquo; + &lsquo;STL&rsquo;</li><li>在 C 中，pass-by-value通常比pass-by-reference高效，而在C++中由于构造函数和析构函数的存在，<strong>pass-by-reference-to</strong>-const往往更好（和编译器层面有关，存在空指针，但没有空引用）</li></ul><h3 id=尽量以const-enum-inline-替换define>尽量以const, enum, inline 替换#define</h3><ul><li>获得编译错误时，#define定义的方式会带来困惑<ul><li>对于单纯常量，最好以const对象或enums替换#define</li><li>对于形似函数的宏，最好使用inline函数替换#define</li></ul></li></ul><h3 id=尽可能使用const>尽可能使用const</h3><p>bitwise constess: const成员函数不能更改non-static成员变量</p><pre tabindex=0><code>class Rational
+{
+  ...
+};
+const Rational operator* (const Rational&amp; lhs,const Rational&amp; rhs)
+{
+  ...
+}
+
+Rational a,b,c;
+if(a * b = c)   //为了防止这种错误，重载加const
+</code></pre><h3 id=const成员函数>const成员函数</h3><p>这个行为编译器是允许的，因为text是一个指针，实现代码并不修改text</p><pre tabindex=0><code>class MyClass
+{
+  private:
+    char *text;
+    //char text[10];//编译器会报错
+  
+  public:
+    char&amp; opeartor[](const int i) const
+    {
+        return text[i]; 
+    }
+};
+</code></pre><p>mutable关键字：变量总是能被修改，即使是在const成员函数内。（只能作用类成员，不能与const同时使用）</p><h3 id=在const和no-const成员函数中避免重复>在const和no-const成员函数中避免重复</h3><pre tabindex=0><code>class MyClass
+{
+public:
+  const char&amp; operator[](const int i)
+  {
+      ...
+  }
+
+  char&amp; operator[](const int i)
+  {
+      return const_cast&lt;char&amp;&gt;(
+          static_cast&lt;const MyClass&amp;&gt;(*this)[i]
+      );
+  }
+
+};
+</code></pre><ul><li>在const成员函数中调用非const成员函数是一种危险行为，因为对象可能由此改动</li></ul><h3 id=确定对象被使用前已被初始化>确定对象被使用前已被初始化</h3><ul><li>区分成员变量的初始化与赋值</li><li>使用member initialization list替换赋值动作</li><li>基于赋值的版本会先调用default构造函数对成员变量进行初始化，然后再赋值(default -> copy)；而第二点所诉版本避免了这个问题,直接调用成员的拷贝构造(copy)</li></ul><h4 id=static对象的初始化>static对象的初始化</h4><ul><li>static对象：定义于global、namespace、classes、函数、file作用域内被声明未static的对象</li><li>local static：函数内的static对象</li><li>编译单元：产出单一目标文件的源码，基本上是单一源码文件加上所含的头文件</li><li>c++对“定义不同编译单元内的non-local static对象”的初始化次序并无明确定义(因为决定他们的初始化顺序非常困难)</li></ul><p>解决方法：将每个non-local static对象搬到自己的专属函数内</p><h2 id=构造析构赋值运算>构造/析构/赋值运算</h2><h3 id=了解c默默编写并调用了哪些函数>了解c++默默编写并调用了哪些函数</h3><ul><li>构造函数、copy构造、copy assignment（可能不会默认创建）、析构函数</li></ul><h3 id=若不想使用编译器自动生成的函数就该明确而拒绝>若不想使用编译器自动生成的函数，就该明确而拒绝</h3><ul><li>声明为delete</li><li>将函数声明在private中，但可能被member函数和friend函数调用；可以实现一个基类这样做，实际的类在继承这个基类就可以解决这个问题</li></ul><h3 id=为多态基类声明virtual析构函数>为多态基类声明virtual析构函数</h3><ul><li>任何class只要带有virtual函数都几乎可以确定应该有一个virtual析构函数</li><li>如果class不企图被当作base class，令其析构函数为virtual往往是个馊主意（有虚表指针，对象的体积会增加；不具有移植性，因为其他语言没有虚表）</li><li>一般认为，只有当class内内含至少一个virtual函数，才为它声明virtual析构函数</li></ul><h3 id=别让异常逃离析构函数>别让异常逃离析构函数</h3><ul><li>析构函数绝对不要吐出异常，如果一个被析构函数调用的函数可能抛出异常，析构函数应该捕捉任何异常，然后吞下它们或结束程序</li></ul><h3 id=绝不在构造和析构过程中调用virtual函数>绝不在构造和析构过程中调用virtual函数</h3><ul><li>在构造和析构函数期间不要调用virtual函数，因为这类调用不下降至derived class</li></ul><h3 id=令operator-返回一个reference-to-this>令operator= 返回一个reference to *this</h3><ul><li>为了实现连锁赋值</li></ul><pre tabindex=0><code>x = y = z
+</code></pre><h3 id=在operator-中处理自我赋值>在operator= 中处理"自我赋值"</h3><pre tabindex=0><code>class MyClass
+{
+private:
+    Bitmap* pb;
+    ......
+};
+//方式一
+MyClass&amp; Myclass::operator(const MyClass&amp; rhs)
+{
+    ......
+    //if(this == &amp;rhs) return *this; //加上安全
+    delete pb;//危险，rhs的pb可能和this的pb指向的是同一个值
+    pb = new Bitmap(*rhs.pb);
+    ......
+}
+//方式二
+MyClass&amp; Myclass::operator(const MyClass&amp; rhs)
+{
+    ......
+    Bitmap* pOrig = pb;
+    pb = new Bitmap(*rhs.pb);
+    delete pOrig;
+    ......
+}
+//方式三
+MyClass&amp; widget::operator(const MyClass rhs)；
+</code></pre><h3 id=复制对象时勿忘其每一个成分>复制对象时勿忘其每一个成分</h3><ul><li>下面情况父类的a会被不带default构造函数（不带实参的）构造</li></ul><pre tabindex=0><code>class MyClass
+{
+private:
+    int a;
+    ......
+};
+
+class DerivedClass : public MyClass
+{
+public:
+    DerivedClass&amp; operator=(const DerivedClass rhs)
+    {
+        ......
+    }
+
+};
+</code></pre><ul><li><p>当调用一个copying函数，确保：</p><ol><li>复制所有local成员变量</li><li>调用所有base内适当的copying函数</li></ol></li><li><p>不要令copy assignment操作符调用copy构造函数（反之亦然）</p></li><li><p>如果copy构造函数和copy assignment函数有较多相似部分，可以建一个新的成员函数供二者调用（private: init）</p></li></ul><h2 id=资源管理>资源管理</h2><h3 id=以对象管理资源>以对象管理资源</h3><h3 id=在资源管理类中小心copying行为>在资源管理类中小心copying行为</h3><ul><li>复制RALL对象必须一并复制它所管理的资源，一般的操作：<ol><li>禁止复制</li><li>引用计数法</li><li>深拷贝</li><li>转移资源所有权</li></ol></li></ul><h3 id=在资源管理类中提供对原设计资源的访问>在资源管理类中提供对原设计资源的访问</h3><h3 id=成对使用new和delete时要采取相同形式>成对使用new和delete时要采取相同形式</h3><pre tabindex=0><code>string *str1 = new string();
+string *str2 = new string[4];
+
+delete str1;
+delete []str2;
+
+//下面是未定义错误
+//delete []str1;
+//delete str2; 
+</code></pre><h3 id=以独立语句将newed对象置入智能指针>以独立语句将newed对象置入智能指针</h3><ul><li>下面在函数参数内构造对象的行为是危险的，智能保证new MyClass的执行顺序在shared_ptr构造函数之前执行，如果priority函数抛出异常，将造成内存泄漏（与java的顺序构造不同）。使用分离语句可解决。</li></ul><pre tabindex=0><code>void process(shared_ptr&lt;MyClass&gt;(new MyClass),pritority());//危险行为
+</code></pre><h2 id=设计与声明>设计与声明</h2><h3 id=让接口容易被正确使用不易被误用>让接口容易被正确使用，不易被误用</h3><ul><li>P78</li></ul><h3 id=设计class犹如设计type>设计class犹如设计type</h3><ul><li>如何创建和销毁</li><li>对象的初始化和赋值该有怎样的差别</li><li>copying函数</li><li>什么是合法值</li><li>&mldr;.</li></ul><h3 id=宁以pass-by-reference-to-const-替换pass-by-value>宁以pass-by-reference-to-const 替换pass-by-value</h3><ul><li>pass-by-value是费时的（构造函数、析构函数、基类的构造函数、基类的析构函数）</li><li>by reference方式传递参数可以避免slicing（对象切割）问题：当一个derived class对象以by value方式传递并被视为一个base class对象，base class对象，base class的copy构造函数会被调用，特质化性质被切割掉。</li></ul><h3 id=必须返回对象时别妄想返回其reference>必须返回对象时，别妄想返回其reference</h3><pre tabindex=0><code>class Rational
+{
+private:
+    int n,d;
+
+public:
+    const Rational operator*(const Rational&amp; rhs);//不担心成本
+    const Rational&amp; operator*(const Rational&amp; rhs)//由谁来析构构造的堆对象;怎么约定用户必须用引用来调用？    
+    {
+        Rational *r = new Rational();
+        ......
+    }
+    
+};
+Rational x,y,z,p;
+p = x * y * z;
+</code></pre><h3 id=将成员变量声明为private>将成员变量声明为private</h3><ul><li>语法一致性：如果public接口内的每样东西都是函数，客户就不需要再打算访问class成员时思考是否需要加小括号</li><li>更精确的控制：使用函数可以实现不准访问、只读访问等；</li><li>封装：如果使用函数访问成员变量，日后可改以某个计算替换这个替换这个成员变量，而class客服一点也不会知道class的内部实现已经发生变换<pre tabindex=0><code>class SpeedDate
+{
+    ...
+public:
+    double averageSoFar() const;
+};
+</code></pre></li></ul><h3 id=宁以non-membernon-friend替换member函数>宁以non-member、non-friend替换member函数</h3><pre tabindex=0><code>class WebBrowser
+{
+public:
+    void clearCache();
+    void clearHistory();
+    void removeCookies();
+
+    //void clearEverything();//封装性低
+};
+
+//封装性高，因为它并不增加&#34;能够访问private函数的数量&#34;
+void clearEverything()
+{
+    clearCache();
+    clearHistory();
+    ...
+}
+</code></pre><ul><li>不能只在意封装性</li><li>更好的做法可以让上述代码在一个命名空间内</li></ul><h3 id=若所有参数皆需要类型转换请为此采用non-member函数>若所有参数皆需要类型转换，请为此采用non-member函数</h3><pre tabindex=0><code>class Rational
+{
+public:
+    Rational(int m=0, int n=0);
+    const Rational operator*(const Rational&amp; rhs) const;
+};
+Rational r1;
+r = r * 2;//right
+r = 2 * r;//error
+</code></pre><pre tabindex=0><code>const Rational operator*(const Rational&amp; lhs, const Rational&amp; rhs)
+{
+    ......
+}
+</code></pre><h3 id=考虑写出一个不抛异常的swap函数>考虑写出一个不抛异常的swap函数</h3><ul><li>制造特化的swap版本</li></ul><pre tabindex=0><code>class WidgetImpl
+{
+    ......
+};
+class Widget
+{
+private:
+    WidgetImpl* pImpl;
+    Widget(const Widget&amp;  rhs);
+    Widget&amp; operator(const Widget&amp; rhs);
+};
+
+Widget w1,w2;
+std::swap(w1,w2);//会复制三个Widget,三个pImpl
+</code></pre><pre tabindex=0><code>class WidgetImpl
+{
+    ......
+};
+class Widget
+{
+private:
+    WidgetImpl* pImpl;
+    Widget(const Widget&amp;  rhs);
+    Widget&amp; operator(const Widget&amp; rhs);
+    void swap(Widget&amp; other)
+    {
+        std::swap(a.pImpl,b.pImpl);
+    }
+};
+namespace std{
+    template&lt;&gt;
+    void swap&lt;Widget&gt;(Widget&amp; a,Widget&amp; b)
+    {
+        a.swap(b);
+    }
+}
+</code></pre><ul><li>STL容器提供有public swap成员函数和std::swap特化版本（用以调用前者）</li><li>类模板可以偏特化，函数模板不能偏特化</li></ul><pre tabindex=0><code>template&lt;typename T&gt;
+class WidgetImpl
+{
+    ......
+};
+class Widget
+{
+    ......
+};
+
+//error,不能偏特化函数
+template&lt;typename T&gt;
+void swap&lt; Wiget&lt;T&gt; &gt;(Widget&lt;T&gt;&amp; a,Widget&amp; b);
+
+//使用重载
+template&lt;typename T&gt;
+void swap(Widget&lt;T&gt;&amp; a,Widget&amp; b);
+</code></pre><ul><li>客户可以全特化std内的template，但不可以添加新的templates</li></ul><pre tabindex=0><code>namespace WidgetStuff{
+  template&lt;typename T&gt;
+  class WidgetImpl
+  {
+      ......
+  };
+  class Widget
+  {
+      ......
+  };
+
+
+  //使用重载
+  template&lt;typename T&gt;
+  void swap(Widget&lt;T&gt;&amp; a,Widget&amp; b);
+}
+</code></pre><ul><li>swap调用顺序：<ol><li>先找同一命名空间</li><li>特化</li><li>非特化</li></ol></li></ul><pre tabindex=0><code>//情况1
+template&lt;typename T&gt;
+void doSomething(T&amp; obj1,T&amp; obj2)
+{
+    swap(obj1,obj2);
+}
+//情况2
+template&lt;typename T&gt;
+void doSomething(T&amp; obj1,T&amp; obj2)
+{
+    using std::swap;//使编译器能看到swap命名空间
+    swap(obj1,obj2);
+}
+//情况3
+template&lt;typename T&gt;
+void doSomething(T&amp; obj1,T&amp; obj2)
+{
+    std::swap(obj1,obj2);
+}
+</code></pre><p>实现swap总结：</p><ol><li>提供一个swap成员函数</li><li>在class说在的命名空间提供一个非成员swap函数</li><li>如果class非template，提供一个特化的swap函数</li></ol><h2 id=实现>实现</h2><h3 id=尽可能延后变量定义式的出现时间>尽可能延后变量定义式的出现时间</h3><ul><li>延后定义知道需要使用甚至延后到能给它初值实参为止</li></ul><pre tabindex=0><code>string encrypePassword(string password)
+{
+    string encrypted;
+    if(password...)
+    {
+        throw ....
+    }
+
+    return encrypted;
+
+}
+</code></pre><ul><li>循环情况，当n过大时，则应该写在外面比较高效，应该综合实际情况</li></ul><pre tabindex=0><code>Widget w;
+for(int i=0;i&lt;n;i++)
+{
+    w = ......
+}
+</code></pre><h3 id=尽量少做转型动作>尽量少做转型动作</h3><ul><li>C++四种转型<ul><li>const_cast: 将对象的常量性移除</li><li>dynamic_cast: 安全向下转型，用于派生类转换，不能转换时，指针赋值为空</li><li>reinterpret_cast: 执行低级转型，重新解释指针，但没有二进制的转换，</li><li>static_cast: 强迫隐式转换</li></ul></li><li>认为转型只是告诉编译器把某种类型视为另一种类型是一种错误的观念。任何一个类型转换往往令编译器编译出运行期间执行的代码</li><li>转型时容易写出某些似是而非的代码，下面调用的是当前对象的base class成分的副本上调用Window::onResize，然后再当前对象身上执行SpecialWindow专属动作</li></ul><pre tabindex=0><code>class Window
+{
+public:
+    virtual void onResize(){...}
+};
+class SpecialWindow:Public Window
+{
+public:
+    virtual void onResize()
+    {
+        static_cast&lt;Window&gt;(*this).onResize();
+        ...
+    }
+
+};
+</code></pre><h3 id=避免返回handles指向对象内部成分>避免返回handles指向对象内部成分</h3><h3 id=为异常安全而努力是值得的>为&rsquo;异常安全&rsquo;而努力是值得的</h3><ul><li>异常安全的两个条件：<ol><li>不泄露任何资源</li><li>不允许数据败坏</li></ol></li></ul><pre tabindex=0><code>void fn(...)
+{
+    lock(&amp;mutex);
+    delete bgImage;
+    ++imageChanges;
+    bgImage = new Image();//未保证两个条件
+    unlock();
+}
+</code></pre><ul><li><p>异常安全函数提供以下三个保证之一：</p><ol><li>基本承诺：如果异常被抛出，没有任何对象或数据结构会因此而败坏</li><li>强烈保证：如果函数成功，就是完全成功；如果函数失败，程序会恢复到调用函数之前的状态</li><li>不抛掷保证：承诺绝不抛出异常。作用于内置类型身上的所有操作都提供nothrow保证</li></ol></li><li><p>一般化设计策略：copy and swap. 为打算修改的对象拷贝一个副本，然后修改，待所有改变都成功后，在做替换（有时候不切实际，如果系统内有一个函数不具备异常安全性，整个系统就不具备异常安全性）</p></li></ul><h3 id=透彻了解inlining的里里外外>透彻了解inlining的里里外外</h3><ul><li>调用它们不需蒙受函数调用招致的额外开销</li><li>可能会增加目标码大小（如果inline函数的本体很小，编译器针对‘函数本体’所产生的码可能比针对‘函数调用‘所产生的码更小）</li><li>函数定义在class中相当于隐喻提出inline</li><li>大多数编译器拒绝太过复杂的函数inline（warning）</li><li>编译器通常不对’通过函数指针而进行的调用‘实施inline</li></ul><h3 id=将文件间的编译依存关系降至最低>将文件间的编译依存关系降至最低</h3><ul><li>尽量以class声明式替换class定义式</li></ul><pre tabindex=0><code>//#include &#34;date.h&#34;  //尽量不适用定义式
+class Date; //class 声明式
+Date today(Date &amp;d); //正确
+</code></pre><ul><li>为声明式和定义式提供不同的头文件</li></ul><h2 id=继承与面向对象设计>继承与面向对象设计</h2><h3 id=确定你的public继承塑模出is-a关系>确定你的public继承塑模出is-a关系</h3><ul><li>public继承意味着is-a。适用于base classes身上的每一件事情一定也适用于derived classes身上</li></ul><pre tabindex=0><code>class Bird
+{
+    public:
+    virtual void fly();
+};
+class Penguin : public Bird
+{
+    public:
+    virtuak void fly()
+    {
+        //表明企鹅是鸟，但是不会飞
+        error(....);
+    }
+};
+//另一种思想是为bird不定义fly，因为不是所有鸟都会飞
+</code></pre><h3 id=避免遮掩继承而来的名称>避免遮掩继承而来的名称</h3><ul><li>可以视为derived class作用域被嵌套在base class作用域内
+<img src=Effective%20C++.assets/33.jpg alt=img></li><li>让遮掩的名称重见天日：</li></ul><pre tabindex=0><code>class Derived : public Base
+{
+    public:
+    using Base::mf1;//所有名为mf1的函数都可见
+    ......
+};
+</code></pre><ul><li>inline转交函数</li></ul><pre tabindex=0><code>class Derived : public Base
+{
+    public:
+    void mf1(int x)
+    {
+        Base::mf1(x);
+    }
+};
+</code></pre><h3 id=区分接口继承和实现继承>区分接口继承和实现继承</h3><ul><li><p>public继承由两部分组成：</p><ol><li>函数接口继承</li><li>函数实现继承</li></ol></li><li><p>pure virtual函数：为了让derived classes只继承函数接口</p></li><li><p>impure virtual函数：为了让derived classes继承该函数的接口和缺省实现</p></li><li><p>non-virtual函数：不打算在derived class中有不同的行为</p></li></ul><h3 id=考虑virtual函数以外的其他选择>考虑virtual函数以外的其他选择</h3><ul><li>由Non-Virtual Interface手法实现Template Method模式：<ul><li>不实用，实际上还是使用的virtual函数</li></ul></li></ul><pre tabindex=0><code>class GameCharacter
+{
+    public:
+    int healthValue() const  //virtual函数的wrapper
+    {
+        doHealthValue();
+        ....
+    }
+
+    private:
+    virtual int doHealthValue() const
+    {
+        ...
+    }
+};
+</code></pre><ul><li>由Function Pointers实现Strategy模式</li></ul><pre tabindex=0><code>class GameCharacter;
+int defaultHealthCalc(const GameCharacter&amp; gc);
+class GameCharacter
+{
+    public:
+    typedef int (*HealthCalcFunc)(const GameCharacter&amp;);
+    explicit GameCharacter(HealthCalcFunc hcf = defaultHealthCalc)
+        : healthFunc(hcf){}
+    int healthValuae() const
+    {
+        return healthFunc(*this);
+    }
+
+    private:
+    HealthCalcFunc healthFunc;
+};
+</code></pre><ul><li>同一任务类型的不同实体可以有不同的健康计算函数</li><li>某已知人物的健康指数可以在运行期间变更</li></ul><pre tabindex=0><code>void setHealthCalculator(...);
+</code></pre><ul><li>存在的问题：如果需要non-public信息进行运算，就有问题</li></ul><h3 id=绝不重新定义继承而来的non-virtual函数>绝不重新定义继承而来的non-virtual函数</h3><pre tabindex=0><code>class A
+{
+pubilc:
+    void fn();
+};
+
+class B : public A
+{
+public:
+    void fn();
+};
+
+class *A = new B();
+A-&gt;fn();
+...
+</code></pre><h3 id=绝不重新定义继承而来的缺省参数值>绝不重新定义继承而来的缺省参数值</h3><ul><li>virtual函数是动态绑定，而缺省的参数值为静态绑定</li></ul><pre tabindex=0><code>class A
+{
+public:
+    virtual void fn(int a = 10) = 0;
+};
+
+class B : public A
+{
+public:
+    virtual void fn(int a = 5)
+    {
+        cout&lt;&lt;a&lt;&lt;endl;
+    }
+};
+
+A *b = new B();
+b.fn();//10
+</code></pre><h3 id=通过复合塑膜出has-a或根据某物实现出>通过复合塑膜出has-a或“根据某物实现出”</h3><h3 id=明智而审慎的使用private继承>明智而审慎的使用private继承</h3><ul><li>private 继承意味着implemented-in-term-of(根据某物实现出)关系。如果D以private形式继承B，意思是D对象根据B对象实现而得，再没有其他意涵了。</li></ul><pre tabindex=0><code>class Timer
+{
+    public:
+    explicit Timer(int tickFrequency);
+    virtual void onTick() const;
+};
+</code></pre><ul><li>Widget要使用Timer的属性，如果使用public继承，Widget并不是Timer，这样做不好。可以使用private继承。</li></ul><pre tabindex=0><code>class Widget: private Timer
+{
+    private:
+    virtual void onTick() const;
+};
+</code></pre><ul><li>下面是另一种实现方式</li></ul><pre tabindex=0><code>class Widget
+{
+    private:
+    class WidgetTimer: public Timer
+    {
+        public:
+            virtual void OnTick() const;
+    };
+    WidgetTimer timer;
+};
+</code></pre><ul><li>c++独立对象都必须有非零大小,sizeof(Empty)大小一般为1</li></ul><pre tabindex=0><code>class Empty{};
+</code></pre><ul><li>EBO机制（空白基类最优化）,sizeof(HoldsAnInt) == sizeof(int)</li></ul><pre tabindex=0><code>class HoldsAnInt: private Empty
+{
+    private:
+    int x;
+};
+</code></pre><ul><li>所以说，当面对“并不存在is-a关系的两个classes”，其中一个要访问另一个的成员，或需要重新定义其一或者多个virtual函数，private继承是一种很好的策略</li></ul><h3 id=明智而审慎的使用多重继承>明智而审慎的使用多重继承</h3><pre tabindex=0><code>class BorrowableItem
+{
+    public:
+    void checkOut();
+};
+class ElectronicGadget
+{
+    private:
+    bool checkOut() const;
+}
+mp::BorrowableItem::checkOut();//必须这样调用，否则有歧义
+</code></pre><ul><li>菱形继承的情况必须使用虚继承</li></ul><pre tabindex=0><code>class File{};
+class InputFile: virtual public File{};
+class OutputFile: virtual public File{};
+class IOFile: public InputFile, public OutputFile{};
+</code></pre><ul><li>使用virtual继承的classes所产生的对象往往比non-virtual继承的兄弟们体积大；访问相应成员变量时，也比non-virtual的成员速度慢</li><li>virtual base的初始化责任是由继承体系最底层class负责</li><li>忠告：<ul><li>非必要不适用virtul bases</li><li>尽可能避免再其中放置数据，防止初始化的奇怪事情</li></ul></li></ul><h2 id=模板与泛型编程>模板与泛型编程</h2><h3 id=了解隐式接口和编译期多态>了解隐式接口和编译期多态</h3><ul><li>编译期多态：以不同的模板参数具现化导致调用不同的函数</li><li>运行期多态：运行期多态通过虚函数发生于运行期</li></ul><h3 id=了解typename的双重意义>了解typename的双重意义</h3><ul><li>template声明式中，class 和 typename 没有什么不同</li><li>typename必须作为嵌套从属名称的前缀词<ul><li>编译器在遭遇一个嵌套从属名称时，假定这个名称不是类型</li></ul></li></ul><pre tabindex=0><code>template&lt;typename C&gt;
+void print2nd(const C&amp; container)
+{
+    C::const_iterator* x;//到底是声明了一个迭代器还是两个数相乘
+    //typename C::const_iterator* x;//right
+    ......
+}
+</code></pre><ul><li>typename不可以出现在base classes list内的嵌套从属名称之前，也不可以在member initialization list 中尉base class修饰符</li></ul><pre tabindex=0><code>template&lt;typename T&gt;
+class Derived: public Base&lt;T&gt;::Nested  //不允许使用
+{
+    public:
+    explict Derived(int x): Base&lt;T&gt;::Nested(x)
+    {
+        typename Base&lt;T&gt;::Nested temp; //不允许使用
+        ....
+    }
+}
+</code></pre><h3 id=学习处理模块化基类内的名称>学习处理模块化基类内的名称</h3><pre tabindex=0><code>//针对公司设计的类
+class CompanyA
+{
+    public:
+    void sendCleartext(const std::string&amp; msg);
+    void sendEncrypted(const std::string&amp; msg);
+}
+
+class CompanyB
+{
+    public:
+    void sendCleartext(const std::string&amp; msg);
+    void sendEncrypted(const std::string&amp; msg);
+}
+
+//用于保存信息
+class MsgInfo
+{
+    .......
+};
+
+template&lt;typename Company&gt;
+class MsgSender
+{
+    public:
+    void sendClear(const MsgInfo&amp; info)
+    {
+        std::string msg;
+        Company c;
+        c.sendCleartext(msg); //right
+    }
+}
+
+template&lt;typename Company&gt;
+class LoggingMsgSender: public MsgSender&lt;Company&gt;
+{
+    public:
+    void sendClearMsg(const MsgInfo&amp; info)
+    {
+        sendClear(info); //无法编译
+    }
+}
+</code></pre><ul><li>上面代码无法通过编译的原因是基类MsgSender其中的Company是个模板参数，不到具现化的时候不知道里面有sendClear函数<ul><li>更清楚的说，是有可能有一个特化的MsgSender版本里面没有sendClear函数</li></ul></li></ul><h4 id=解决办法>解决办法</h4><ol><li>使用this</li></ol><pre tabindex=0><code>template&lt;typename Company&gt;
+class LoggingMsgSender: public MsgSender&lt;Company&gt;
+{
+    public:
+    void sendClearMsg(...)
+    {
+        this-&gt;sendClear(info); //成立，假设sendClear被继承
+    }
+}
+</code></pre><ol start=2><li>使用using声明式</li></ol><pre tabindex=0><code>template&lt;typename Company&gt;
+class LoggingMsgSender: public MsgSender&lt;Company&gt;
+{
+    using MsgSender&lt;Company&gt;::sendClear;//告诉编译器，假设sendClear位于base class内
+    public:
+    void sendClearMsg(...)
+    {
+        sendClear(info); //成立，假设sendClear被继承
+    }
+}
+</code></pre><ol start=3><li>明确指出被调用函数位于base class内<ul><li>有缺陷，当sendClear是一个virtual函数的时候</li></ul></li></ol><pre tabindex=0><code>template&lt;typename Company&gt;
+class LoggingMsgSender: public MsgSender&lt;Company&gt;
+{
+    public:
+    void sendClearMsg(...)
+    {
+        MsgSender&lt;Company&gt;::sendClear(info); //成立，假设sendClear被继承
+    }
+}
+</code></pre><h3 id=请使用traits-classes表现类型信息>请使用traits classes表现类型信息</h3><ul><li>traints：对内置类型和用户自定义类型表现的一样好</li><li>迭代器移动某个给定距离<ul><li>内部实现上，只有对于支持随机访问的迭代器支持+=操作，其他的迭代器只有反复施行 ++ 或者 &ndash; 操作，共d次</li></ul></li></ul><pre tabindex=0><code>template&lt;typename IterT, typename DistT&gt;
+void advance(IterT&amp; iter, DisT d);
+</code></pre><ul><li>STL迭代器分类：<ol><li>Input迭代器：只能向前移动，模仿输入文件的读指针，只能读取且一次(如istream_iterators)</li><li>Output迭代器：同上，模仿输出文件的涂写指针，只能涂写且一次(如ostream_iterators)</li><li>forward迭代器：可以读或写所指物一次以上，只能向前移动</li><li>Bidirectional迭代器：可以前后移动</li><li>random access迭代器：随机迭代器，可以执行迭代器算数，以常量时间向前和向后跳跃(如vector, deque, string)</li></ol></li></ul><h2 id=定制new-和-delete>定制new 和 delete</h2><h3 id=了解new-handler的行为>了解new-handler的行为</h3><ul><li>当operator new抛出异常以反映一个未获满足的内存需求之前，会先调用一个客户指定的错误处理函数，即new-handler</li><li>为了指定调用用以内存不足的函数，客户必须调用set_new_handler</li></ul><pre tabindex=0><code>namespace std{
+    typedef void (*new_handler)();
+    new_handler set_new_handler(new_handler p) throw();
+}
+//需要这样使用
+void outOfMem()
+{
+    ......
+}
+
+int main()
+{
+    std::set_new_handle(outOfMem);
+    int* pBigDataArray = new int[1000000000];
+    ......
+}
+</code></pre><ul><li>卸除new-handler：将null指针传给set_new_handler</li></ul><h3 id=了解new和delete的合理替换时机>了解new和delete的合理替换时机</h3><ul><li>为什么要替换operator new 和 operator delete?<ul><li>用来检测运用上的错误</li><li>为了强化效能：new 与 delete 主要用于一般目的；不一定对任何程序使用</li><li>为了收集使用上的统计数据：收集软件如何使用动态内存</li></ul></li></ul><h2 id=杂项讨论>杂项讨论</h2><h3 id=不要忽略编译器的警告>不要忽略编译器的警告</h3><h3 id=让自己熟悉包括tr1在内的标准程序库>让自己熟悉包括TR1在内的标准程序库</h3><h3 id=让自己熟悉boost>让自己熟悉Boost</h3></span></article></div></main></div><footer><div class="flex flex-col justify-center p-10"><p class="text-center text-slate-700 dark:text-slate-400">&copy;
+2024
+XiaBing</p><p class="text-center text-sm text-slate-700 dark:text-slate-400">Published with <a class="hover:underline hover:decoration-indigo-500 hover:text-indigo-500" href=https://gohugo.io target=_blank rel="noopener noreferrer">Hugo</a> & <a class="hover:underline hover:decoration-indigo-500 hover:text-indigo-500" href=https://github.com/chrede88/qubt target=_blank rel="noopener noreferrer">Qubt</a></p></div></footer></body></html>
