@@ -6,8 +6,7 @@ class Rational { ... }; const Rational operator* (const Rational& lhs,const Rati
 </a><a href=/blog/ class="px-3 py-2 text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">Blog
 </a><a href=/about/ class="px-3 py-2 text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">About</a></nav></div></section><section id=mobile-menu class="absolute hidden w-full origin-top animate-open-menu flex-col justify-center bg-neutral-100 text-4xl dark:bg-neutral-800"><nav class="flex min-h-screen flex-col items-center py-8" aria-label=mobile><a href=/ class="px-3 py-2 text-center text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">Home
 </a><a href=/blog/ class="px-3 py-2 text-center text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">Blog
-</a><a href=/about/ class="px-3 py-2 text-center text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">About</a></nav></section></header><main><div class="justify-left mx-auto mt-8 flex max-w-screen-md px-4"><article><h1 class="text-4xl font-extrabold text-slate-700 dark:text-slate-200">Effective c++</h1><h2 class="mt-4 text-2xl text-slate-500 dark:text-slate-400">Effective c++ 读书笔记</h2><div class="mb-4 mt-2 text-sm text-slate-500 dark:text-slate-400">Aug 14, 2023 - 6 minute read</div><div class="flex flex-col"><img class="mt-4 h-full w-full object-cover" src=/photo1_hu5459c0360c2b0cb7a147d2df0eb350ca_4652768_filter_11492400015018413633.webp alt="feature image" height=491 width=736>
-<span class="mb-4 mt-1 text-center text-sm text-slate-700 dark:text-slate-200">Image caption</span></div><span class="prose prose-slate text-lg text-slate-700 dark:prose-invert dark:text-slate-200"><h1 id=effective-c>Effective C++</h1><h2 id=导言>导言</h2><ul><li>除非有好的理由允许隐式转换，否则声明explicit</li><li>拷贝构造函数和拷贝赋值操作符：如果有新对象被定义，一定会有个构造函数被调用<pre tabindex=0><code>  class Widget
+</a><a href=/about/ class="px-3 py-2 text-center text-slate-700 hover:text-indigo-500 md:p-0 dark:text-slate-400">About</a></nav></section></header><main><div class="justify-left mx-auto mt-8 flex max-w-screen-md px-4"><article><h1 class="text-4xl font-extrabold text-slate-700 dark:text-slate-200">Effective c++</h1><h2 class="mt-4 text-2xl text-slate-500 dark:text-slate-400">Effective c++ 读书笔记</h2><div class="mb-4 mt-2 text-sm text-slate-500 dark:text-slate-400">Aug 14, 2023 - 6 minute read</div><div class="flex flex-col"><img class="mt-4 h-full w-full object-cover" src=/photo1_hu5459c0360c2b0cb7a147d2df0eb350ca_4652768_filter_11492400015018413633.webp alt="feature image" height=491 width=736></div><span class="prose prose-slate text-lg text-slate-700 dark:prose-invert dark:text-slate-200"><h1 id=effective-c>Effective C++</h1><h2 id=导言>导言</h2><ul><li>除非有好的理由允许隐式转换，否则声明explicit</li><li>拷贝构造函数和拷贝赋值操作符：如果有新对象被定义，一定会有个构造函数被调用<pre tabindex=0><code>  class Widget
   {
   public:
       Widget();
@@ -310,7 +309,7 @@ class Penguin : public Bird
 };
 //另一种思想是为bird不定义fly，因为不是所有鸟都会飞
 </code></pre><h3 id=避免遮掩继承而来的名称>避免遮掩继承而来的名称</h3><ul><li>可以视为derived class作用域被嵌套在base class作用域内
-<img src=Effective%20C++.assets/33.jpg alt=img></li><li>让遮掩的名称重见天日：</li></ul><pre tabindex=0><code>class Derived : public Base
+![img](Effective C++.assets/33.jpg)</li><li>让遮掩的名称重见天日：</li></ul><pre tabindex=0><code>class Derived : public Base
 {
     public:
     using Base::mf1;//所有名为mf1的函数都可见
